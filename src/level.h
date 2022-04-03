@@ -1324,6 +1324,7 @@ struct Level : IGame {
 
     static int getAdvGlyphPage(int index) {
         index -= UI::advGlyphsStart;
+/*
         if (index >= RU_GLYPH_COUNT) {
             index -= RU_GLYPH_COUNT;
             if (index >= JA_GLYPH_COUNT) {
@@ -1338,6 +1339,7 @@ struct Level : IGame {
                 return 1 + index / 256; // JA
             }
         }
+*/
         return 0; // RU
     }
 
@@ -1394,6 +1396,7 @@ struct Level : IGame {
                 uvCount  = 2;
                 isSprite = true;
                 if (data) {
+/*
                     if (id < UI::advGlyphsStart) {
                         level->fillObjectTexture(owner->tileData, tile.uv, tile.tex);
                     } else {
@@ -1418,6 +1421,8 @@ struct Level : IGame {
 
                         level->fillObjectTexture32(owner->tileData, glyphsData, uv, tile.tex);
                     }
+*/
+                    level->fillObjectTexture(owner->tileData, tile.uv, tile.tex);	//By Johnny
                 }
             } else { // common (generated) textures
                 id -= level->spriteTexturesCount;
@@ -1601,6 +1606,7 @@ struct Level : IGame {
 
         UI::patchGlyphs(level);
 
+/*
         {
             uint32 glyphsW, glyphsH;
             Stream stream(NULL, GLYPH_RU, size_GLYPH_RU);
@@ -1625,6 +1631,7 @@ struct Level : IGame {
             glyphsCN = Texture::LoadBMP(stream, glyphsW, glyphsH);
         }
 
+*/
     // repack texture tiles
         int maxTiles = level.objectTexturesCount + level.spriteTexturesCount + CTEX_MAX;
         Atlas *rAtlas = new Atlas(maxTiles, short4(4, 4, 4, 4), this, fillCallback);

@@ -100,6 +100,7 @@ void sndFree() {
     delete[] sndData;
 }
 
+
 // Window
 bool wndInit(DISPMANX_DISPLAY_HANDLE_T &display, EGL_DISPMANX_WINDOW_T &window) {
     if (graphics_get_display_size(0, (uint32_t*)&window.width, (uint32_t*)&window.height) < 0) {
@@ -191,7 +192,8 @@ void eglFree(EGLDisplay display, EGLSurface surface, EGLContext context) {
 }
 
 // Input
-#define MAX_INPUT_DEVICES 16
+//#define MAX_INPUT_DEVICES 16
+#define MAX_INPUT_DEVICES 2
 int inputDevices[MAX_INPUT_DEVICES];
 
 udev *udevObj;
@@ -409,8 +411,20 @@ void inputUpdate() {
                 case EV_ABS : {
                     switch (e->code) {
                     // Left stick
-                        case ABS_X  : joyL.x = joyAxisValue(e->value); break;
-                        case ABS_Y  : joyL.y = joyAxisValue(e->value); break;
+                        //case ABS_X  : joyL.x = joyAxisValue(e->value); break;
+                        case ABS_X  :  
+                        case ABS_HAT0X    :
+                        case ABS_THROTTLE :
+                    		      Input::setJoyDown(joyIndex, jkLeft,  e->value < 0);
+                        	      Input::setJoyDown(joyIndex, jkRight, e->value > 0);
+				      break;
+                        //case ABS_Y  : joyL.y = joyAxisValue(e->value); break;
+                        case ABS_Y  :  
+                        case ABS_HAT0Y    :
+                        case ABS_RUDDER   :
+                        	      Input::setJoyDown(joyIndex, jkUp,    e->value < 0);
+                        	      Input::setJoyDown(joyIndex, jkDown,  e->value > 0);
+				      break;
                     // Right stick
                         case ABS_RX : joyR.x = joyAxisValue(e->value); break;
                         case ABS_RY : joyR.y = joyAxisValue(e->value); break;
@@ -418,6 +432,7 @@ void inputUpdate() {
                         case ABS_Z  : Input::setJoyPos(joyIndex, jkLT, joyTrigger(e->value)); break;
                     // Right trigger
                         case ABS_RZ : Input::setJoyPos(joyIndex, jkRT, joyTrigger(e->value)); break;
+/*
                     // D-PAD
                         case ABS_HAT0X    :
                         case ABS_THROTTLE :
@@ -429,13 +444,14 @@ void inputUpdate() {
                             Input::setJoyDown(joyIndex, jkUp,    e->value < 0);
                             Input::setJoyDown(joyIndex, jkDown,  e->value > 0);
                             break;
+*/
                     }
 
-                    Input::setJoyPos(joyIndex, jkL, joyDir(joyL));
-                    Input::setJoyPos(joyIndex, jkR, joyDir(joyR));
+//                    Input::setJoyPos(joyIndex, jkL, joyDir(joyL));
+//                    Input::setJoyPos(joyIndex, jkR, joyDir(joyR));
                 }
             }
-            //LOG("input: type = %d, code = %d, value = %d\n", int(e->type), int(e->code), int(e->value));
+            LOG("input: type = %d, code = %d, value = %d\n", int(e->type), int(e->code), int(e->value));
             e++;
             rb -= sizeof(events[0]);
         }
@@ -469,6 +485,7 @@ void inputUpdate() {
 
 EGLDisplay display;
 
+/*
 int checkLanguage() {
     char *lang = getenv("LANG");
     if (!lang || strlen(lang) < 2) return 0;
@@ -493,9 +510,9 @@ int checkLanguage() {
     if (id == TWOCC("zh")) return STR_LANG_CN - STR_LANG_EN;
     if (id == TWOCC("hu")) return STR_LANG_HU - STR_LANG_EN;
     if (id == TWOCC("sv")) return STR_LANG_SV - STR_LANG_EN;
-
     return 0;
 }
+*/
 
 int main(int argc, char **argv) {
     bcm_host_init();
@@ -531,7 +548,8 @@ int main(int argc, char **argv) {
     gettimeofday(&t, NULL);
     startTime = t.tv_sec;
     
-    Core::defLang = checkLanguage();
+//    Core::defLang = checkLanguage();
+    Core::defLang = 0;
 
     sndInit();
 

@@ -26,6 +26,7 @@ enum StringID {
     , STR_QUALITY_MEDIUM
     , STR_QUALITY_HIGH
     , STR_LANG_EN
+/*
     , STR_LANG_FR
     , STR_LANG_DE
     , STR_LANG_ES
@@ -40,6 +41,7 @@ enum StringID {
     , STR_LANG_CN
     , STR_LANG_HU
     , STR_LANG_SV
+*/
     , STR_APPLY
     , STR_GAMEPAD_1
     , STR_GAMEPAD_2
@@ -254,14 +256,17 @@ enum StringID {
     , STR_MAX
 };
 
+/*
 #ifdef _XBOX // TODO: illegal escape sequence
     #define STR_RUSSIAN "Russian"
 #else
     #define STR_RUSSIAN "–усски{и"
 #endif
+*/
 
 #define STR_LANGUAGES \
-      "English"       \
+      "English"       
+/*  \
     , "Fran|cais"     \
     , "Deutsch"       \
     , "Espa+nol"      \
@@ -276,8 +281,9 @@ enum StringID {
     , "\x11\x02\x8A\x02\x6C\x01\x54\x03\x02\xFF\xFF" \
     , "Magyar" \
     , "Svenska"
-
-#define LANG_PREFIXES "_EN", "_FR", "_DE", "_ES", "_IT", "_PL", "_PT", "_RU", "_JA", "_GR", "_FI", "_CZ", "_CN", "_HU", "_SV"
+*/
+//#define LANG_PREFIXES "_EN", "_FR", "_DE", "_ES", "_IT", "_PL", "_PT", "_RU", "_JA", "_GR", "_FI", "_CZ", "_CN", "_HU", "_SV"
+#define LANG_PREFIXES "_EN"
 
 #define STR_KEYS \
       "NONE", "LEFT", "RIGHT", "UP", "DOWN", "SPACE", "TAB", "ENTER", "ESCAPE", "SHIFT", "CTRL", "ALT" \
@@ -312,6 +318,7 @@ const char *helpText =
     "Free Camera - hold L & R stick";
 
 #include "lang/en.h"
+/*
 #include "lang/fr.h"
 #include "lang/de.h"
 #include "lang/es.h"
@@ -326,11 +333,13 @@ const char *helpText =
 #include "lang/cn.h"
 #include "lang/hu.h"
 #include "lang/sv.h"
+*/
 
 char **STR = NULL;
 
 void ensureLanguage(int lang) {
     ASSERT(COUNT(STR_EN) == STR_MAX);
+/*
     ASSERT(COUNT(STR_FR) == STR_MAX);
     ASSERT(COUNT(STR_DE) == STR_MAX);
     ASSERT(COUNT(STR_ES) == STR_MAX);
@@ -345,10 +354,11 @@ void ensureLanguage(int lang) {
     ASSERT(COUNT(STR_CN) == STR_MAX);
     ASSERT(COUNT(STR_HU) == STR_MAX);
     ASSERT(COUNT(STR_SV) == STR_MAX);
-
+*/
     lang += STR_LANG_EN;
 
     switch (lang) {
+/*
         case STR_LANG_FR : STR = (char**)STR_FR; break;
         case STR_LANG_DE : STR = (char**)STR_DE; break;
         case STR_LANG_ES : STR = (char**)STR_ES; break;
@@ -363,6 +373,7 @@ void ensureLanguage(int lang) {
         case STR_LANG_CN : STR = (char**)STR_CN; break;
         case STR_LANG_HU : STR = (char**)STR_HU; break;
         case STR_LANG_SV : STR = (char**)STR_SV; break;
+*/
         default          : STR = (char**)STR_EN; break;
     }
 }

@@ -193,6 +193,7 @@
     #define GL_TEXTURE_COMPARE_MODE     0x884C
     #define GL_TEXTURE_COMPARE_FUNC     0x884D
     #define GL_COMPARE_REF_TO_TEXTURE   0x884E
+    #define GL_NUM_EXTENSIONS           0x821D
 
     #undef  GL_RG
     #undef  GL_RG32F
@@ -208,18 +209,33 @@
     #define GL_RG16F        GL_RGBA
     #define GL_HALF_FLOAT   GL_HALF_FLOAT_OES
 
-    #define GL_TEXTURE_3D           0
-    #define GL_TEXTURE_WRAP_R       0
+    #define GL_R8           GL_RGBA
+    #define GL_RED          GL_RGBA
+
+    #define GL_TEXTURE_3D           GL_TEXTURE_3D_OES
+    #define GL_TEXTURE_WRAP_R       GL_TEXTURE_WRAP_R_OES
     #define GL_DEPTH_STENCIL        GL_DEPTH_STENCIL_OES
     #define GL_UNSIGNED_INT_24_8    GL_UNSIGNED_INT_24_8_OES
+    #define GL_PROGRAM_BINARY_LENGTH     GL_PROGRAM_BINARY_LENGTH_OES
 
-    #define glTexImage3D(...) 0
+    //#define glTexImage3D(...) 0
+    #define glTexImage3D 	 glTexImage3DOES
+
+    //#define PFNGLGENVERTEXARRAYSPROC    PFNGLGENVERTEXARRAYSOESPROC
+    //#define PFNGLDELETEVERTEXARRAYSPROC PFNGLDELETEVERTEXARRAYSOESPROC
+    //#define PFNGLBINDVERTEXARRAYPROC    PFNGLBINDVERTEXARRAYOESPROC
+    //#define PFNGLGETPROGRAMBINARYPROC   PFNGLGETPROGRAMBINARYOESPROC
+    //#define PFNGLPROGRAMBINARYPROC      PFNGLPROGRAMBINARYOESPROC
+
+    //#define glGenVertexArrays    glGenVertexArraysOES
+    //#define glDeleteVertexArrays glDeleteVertexArraysOES
+    //#define glBindVertexArray    glBindVertexArrayOES
+    //#define glGetProgramBinary   glGetProgramBinaryOES
+    //#define glProgramBinary      glProgramBinaryOES
 
     #define glGenVertexArrays(...)
     #define glDeleteVertexArrays(...)
     #define glBindVertexArray(...)
-    
-    #define GL_PROGRAM_BINARY_LENGTH     GL_PROGRAM_BINARY_LENGTH_OES
     #define glGetProgramBinary(...)
     #define glProgramBinary(...)
 
@@ -1149,7 +1165,7 @@ namespace GAPI {
 
 
     bool extSupport(const char *str) {
-        #if !defined(_GAPI_GLES2) && !_OS_MAC
+        #if !defined(_GAPI_GLES2) && !_OS_MAC && !_OS_RPI
         if (glGetStringi != NULL) {
             GLint count = 0;
             glGetIntegerv(GL_NUM_EXTENSIONS, &count); 

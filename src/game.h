@@ -80,9 +80,9 @@ namespace Game {
         level->init(playLogo, playVideo);
 
         UI::game = level;
-        #if !defined(INV_GAMEPAD_ONLY)
-            UI::helpTipTime = 5.0f;
-        #endif
+        //#if !defined(INV_GAMEPAD_ONLY)
+        //    UI::helpTipTime = 5.0f;
+        //#endif
         delete lvl;
     }
 }

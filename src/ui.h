@@ -47,7 +47,7 @@ namespace UI {
 
     int advGlyphsStart;
 
-    #define RU_MAP              "ÁÃÄÆÇÈËÏÓÔÖ×ØÙÚÛÜÝÞßáâãäæçêëìíïòôö÷øùúûüýþÿ" "i~\"^"
+    #define RU_MAP              "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     #define RU_GLYPH_COUNT      (COUNT(RU_MAP) - 1)
     #define RU_GLYPH_START      102
     #define RU_GLYPH_UPPERCASE  20
@@ -63,11 +63,11 @@ namespace UI {
         5, 5, 5, 11, 9, 7, 8, 6, 0, 7, 7, 3, 8, 8, 13, 7, 9, 4, 12, 12, 
         7, 5, 7, 7, 7, 7, 7, 7, 7, 7, 16, 14, 14, 14, 16, 16, 16, 16, 16, 12, 14, 8, 8, 8, 8, 8, 8, 8,
     // cyrillic
-        11, 11, 11, 13, 10, 13, 11, 11, 12, 12, 11,  9, 13, 13, 10, 13, // ÁÃÄÆÇÈËÏÓÔÖ×ØÙÚÛ
-         9, 11, 12, 11, 10,  9,  8, 10, 11,  9, 10, 10, 11,  9, 10, 12, // ÜÝÞßáâãäæçêëìíïò
-        10, 10,  9, 11, 12,  9, 11,  8,  9, 13,  9,                     // ôö÷øùúûüýþÿ
+        11, 11, 11, 13, 10, 13, 11, 11, 12, 12, 11,  9, 13, 13, 10, 13, 
+         9, 11, 12, 11, 10,  9,  8, 10, 11,  9, 10, 10, 11,  9, 10, 12, 
+        10, 10,  9, 11, 12,  9, 11,  8,  9, 13,  9, 
     // additional
-        5, 10, 10, 10 // i~"^
+        5, 10, 10, 10 
     }; 
         
     static const uint8 char_map[102 + 33*2] = {
@@ -77,15 +77,20 @@ namespace UI {
         37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 100, 101, 102, 67, 0, 0, 0, 0, 0, 0, 0,
     // cyrillic
         0, 110, 0, 111, 112, 0, 113, 114, 115, 0, 0, 116, 0, 0, 0, 117, 0, 0, 0, 118, 119, 0, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129,
-        0, 130, 131, 132, 133, 0, 134, 135, 0, 0, 136, 137, 138, 139, 0, 140, 0, 0, 141, 0, 142, 0, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152,
+        0, 130, 131, 132, 133, 0, 134, 135, 0, 0, 136, 137, 138, 139, 0, 140, 0, 0, 141, 0, 142, 0, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152
     };
 
     enum Align  { aLeft, aRight, aCenter, aCenterV };
+    enum ShadeType {
+        SHADE_NONE   = 0,
+        SHADE_ORANGE = 1,
+        SHADE_GRAY   = 2,
+    };
 
     inline int charRemap(char c) {
-        if (isCyrillic(c)) {
-            return char_map[RU_GLYPH_START + (c - 'À')];
-        }
+//      if (isCyrillic(c)) {
+//          return char_map[RU_GLYPH_START + (c - 'À')];
+//      }
 
         if (c < 11)
             return c + 81;
@@ -107,12 +112,14 @@ namespace UI {
         UI::advGlyphsStart = level.spriteTexturesCount;
 
     // init new sprites array with additional sprites
-        TR::TextureInfo *newSprites = new TR::TextureInfo[level.spriteTexturesCount + RU_GLYPH_COUNT + JA_GLYPH_COUNT + GR_GLYPH_COUNT + CN_GLYPH_COUNT];
+        //TR::TextureInfo *newSprites = new TR::TextureInfo[level.spriteTexturesCount + RU_GLYPH_COUNT + JA_GLYPH_COUNT + GR_GLYPH_COUNT + CN_GLYPH_COUNT];
+        TR::TextureInfo *newSprites = new TR::TextureInfo[level.spriteTexturesCount];
 
     // copy original sprites
         memcpy(newSprites, level.spriteTextures, sizeof(TR::TextureInfo) * level.spriteTexturesCount);
     // append russian glyphs
         TR::TextureInfo *glyphSprite = newSprites + level.spriteTexturesCount;
+/*
         for (int i = 0; i < RU_GLYPH_COUNT; i++) {
             int idx = 110 + i; // mapped index
             int w = char_width[idx];
@@ -141,17 +148,17 @@ namespace UI {
         }
 
         level.spriteTexturesCount += RU_GLYPH_COUNT + JA_GLYPH_COUNT + GR_GLYPH_COUNT + CN_GLYPH_COUNT;
-
+*/
         delete[] level.spriteTextures;
         TR::gSpriteTextures      = level.spriteTextures = newSprites;
         TR::gSpriteTexturesCount = level.spriteTexturesCount;
     }
 
     bool isWideCharStart(char c) {
-        int lang = Core::settings.audio.language + STR_LANG_EN;
-        if (lang == STR_LANG_JA || lang == STR_LANG_GR || lang == STR_LANG_CN)
-            return c == '\x11';
-        return false;
+      int lang = Core::settings.audio.language + STR_LANG_EN;
+//      if (lang == STR_LANG_JA || lang == STR_LANG_GR || lang == STR_LANG_CN)
+//         return c == '\x11';
+      return false;
     }
 
     uint16 getWideCharGlyph(const char *text) {
@@ -166,6 +173,7 @@ namespace UI {
 
     uint16 getWideCharGlyphWidth(uint16 glyph) {
         int lang = Core::settings.audio.language + STR_LANG_EN;
+/*
         if (lang == STR_LANG_JA) {
             ASSERT(glyph < JA_GLYPH_COUNT);
             return 16;
@@ -178,22 +186,22 @@ namespace UI {
             ASSERT(glyph < CN_GLYPH_COUNT);
             return 16;
         }
+*/
         return 1;
     }
 
     int getWideCharGlyphIndex(uint16 glyph) {
         int lang = Core::settings.audio.language + STR_LANG_EN;
-        glyph += UI::advGlyphsStart + RU_GLYPH_COUNT;
-        if (lang == STR_LANG_JA) return glyph; glyph += JA_GLYPH_COUNT;
-        if (lang == STR_LANG_GR) return glyph; glyph += GR_GLYPH_COUNT;
-        if (lang == STR_LANG_CN) return glyph; glyph += CN_GLYPH_COUNT;
+//        glyph += UI::advGlyphsStart + RU_GLYPH_COUNT;
+//      if (lang == STR_LANG_JA) return glyph; glyph += JA_GLYPH_COUNT;
+//      if (lang == STR_LANG_GR) return glyph; glyph += GR_GLYPH_COUNT;
+//      if (lang == STR_LANG_CN) return glyph; glyph += CN_GLYPH_COUNT;
         ASSERT(false);
         return glyph;
     }
 
     short2 getLineSize(const char *text) {
         int  x = 0;
-
         while (char c = *text++) {
 
             if (isWideCharStart(c)) {
@@ -207,7 +215,7 @@ namespace UI {
             }
 
             if (c == '[') break;
-            c = remapCyrillic(c);
+//          c = remapCyrillic(c);
             if (c == '\xBF') c = '?';
             if (c == '\xA1') c = '!';
 
@@ -226,7 +234,6 @@ namespace UI {
 
     short2 getTextSize(const char *text) {
         int x = 0, w = 0, h = 16;
-
         while (char c = *text++) {
 
             if (isWideCharStart(c)) {
@@ -240,7 +247,7 @@ namespace UI {
             }
 
             if (c == '[') break;
-            c = remapCyrillic(c);
+//            c = remapCyrillic(c);
             if (c == '\xBF') c = '?';
             if (c == '\xA1') c = '!';
 
@@ -303,12 +310,6 @@ namespace UI {
         Core::setDepthWrite(true);
     }
 
-    enum ShadeType {
-        SHADE_NONE   = 0,
-        SHADE_ORANGE = 1,
-        SHADE_GRAY   = 2,
-    };
-
     int getLeftOffset(const char *text, Align align, int width) {
         if (align != aLeft) {
             int lineWidth = getLineSize(text).x;
@@ -352,6 +353,7 @@ namespace UI {
 
         while (char c = *text++) {
             // skip japanese chars
+/*
             if (isWideCharStart(c)) {
                 uint16 glyph;
                 while ((glyph = getWideCharGlyph(text)) != 0xFFFF) {
@@ -397,13 +399,14 @@ namespace UI {
                 text += 2;
                 continue;
             }
+*/
 
             if (c == '[') break; // subs part end (timing tags)
 
             bool invertX = false, invertY = false;
             int dx = 0, dy = 0;
 
-            c = remapCyrillic(c);
+//            c = remapCyrillic(c);
             if (c == '\xBF') { c = '?'; invertX = invertY = true; }
             if (c == '\xA1') { c = '!'; invertX = invertY = true; }
 
@@ -452,7 +455,8 @@ namespace UI {
             bool isSkipChar = skipChar(c) && *text && *text != '@';
 
             if (isSkipChar) {
-                int idx = charRemap(remapCyrillic(*text));
+//                int idx = charRemap(remapCyrillic(*text));
+                int idx = charRemap(*text);
                 bool isUppderCase = upperCase(idx);
                 
                 if (c == '{') {
@@ -517,9 +521,11 @@ namespace UI {
         }
     }
 
+
     void textOut(const vec2 &pos, StringID str, Align align = aLeft, float width = 0, uint8 alpha = 255, ShadeType shade = SHADE_ORANGE) {
         textOut(pos, STR[str], align, width, alpha, shade);
     }
+
 
     void specOut(const vec2 &pos, char specChar) {
         TR::Level *level = game->getLevel();
@@ -571,15 +577,13 @@ namespace UI {
         }
 
         for (int i = subsPos; i < subsLength; i++) {
-
-            if (isWideCharStart(subs[i])) {
-                while (getWideCharGlyph(subs + i + 1) != 0xFFFF) {
-                    i += 2;
-                }
-                i += 2;
-                continue;
-            }
-
+//            if (isWideCharStart(subs[i])) {
+//                while (getWideCharGlyph(subs + i + 1) != 0xFFFF) {
+//                    i += 2;
+//                }
+//                i += 2;
+//                continue;
+//            }
             if (subs[i] == '[') {
                 for (int j = i + 1; j < subsLength; j++) {
                     if (subs[j] == ']') {
@@ -630,12 +634,20 @@ namespace UI {
                 subsGetNextPart();
             }
         }
-
+/*
         if (Input::down[ikH]) {
             Input::down[ikH] = false;
             showHelp = !showHelp;
             helpTipTime = 0.0f;
         }
+By Johnny */
+
+        if (Input::down[ikF]) {
+            Input::down[ikF] = false;
+            showHelp = !showHelp;
+            helpTipTime = 0.0f;
+        }
+
         if (helpTipTime > 0.0f)
             helpTipTime -= Core::deltaTime;
 
@@ -722,7 +734,7 @@ namespace UI {
         if (hintTime > 0.0f) {
             textOut(vec2(16, 32), hintStr, aLeft, width - 32, 255, UI::SHADE_GRAY);
         }
-
+/*
     #if defined(_OS_WEB) || defined(_OS_WIN) || defined(_OS_LINUX) || defined(_OS_MAC) || defined(_OS_RPI)
         if (showHelp) {
             textOut(vec2(32, 32), STR_HELP_TEXT, aLeft, width - 32, 255, UI::SHADE_GRAY);
@@ -738,6 +750,13 @@ namespace UI {
         sprintf(buf, "%d", Core::stats.fps);
         textOut(vec2(0, 16), buf, aLeft, width, 255, UI::SHADE_ORANGE);
     #endif
+By Johnny */
+
+        if (showHelp) {
+            char buf[256];
+            sprintf(buf, "%d", Core::stats.fps);
+            textOut(vec2(0, 16), buf, aLeft, width, 255, UI::SHADE_ORANGE);
+	}
     }
 
     void renderSubs() {

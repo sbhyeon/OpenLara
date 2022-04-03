@@ -55,6 +55,11 @@
     #endif
 #endif
 
+// By Johnny
+#ifdef _OS_RPI
+    #define LOG(...)	0
+#endif
+
 #ifdef _OS_PSV
     #undef LOG
     #define LOG(...) psvDebugScreenPrintf(__VA_ARGS__)

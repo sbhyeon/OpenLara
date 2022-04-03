@@ -34,7 +34,8 @@
 
 #define SND_CHANNELS_MAX    128
 #define SND_FADEOFF_DIST    (1024.0f * 8.0f)
-#define SND_LOWPASS_FREQ    0.2f
+//#define SND_LOWPASS_FREQ    0.2f
+#define SND_LOWPASS_FREQ    0.8f	//By Johnny
 #define SND_MAX_VOLUME      20
 #define SND_PAN_FACTOR      0.7f
 #define SND_FACING_FACTOR   0.3f

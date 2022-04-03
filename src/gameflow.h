@@ -661,13 +661,17 @@ namespace TR {
             case 3532024 : return LVL_TR1_10C;
             // EGYPT
             case 3278614 : version = VER_TR1_PSX;
+	    case 3279576 :
             case 3279242 : return LVL_TR1_EGYPT;
             // CAT
             case 3270370 : version = VER_TR1_PSX;
+	    case 3271332 :
             case 3270998 : return LVL_TR1_CAT;
             // END
+	    case 3208980 :
             case 3208018 : return LVL_TR1_END;
             // END2
+	    case 3154262 :
             case 3153300 : return LVL_TR1_END2;
         // TR2
             // TITLE
@@ -1277,7 +1281,8 @@ namespace TR {
     bool checkWebDub(Version version, int track) {
         if (getSubs(version, track) != STR_EMPTY) {
             int lang = Core::settings.audio.language + STR_LANG_EN;
-            return lang == STR_LANG_EN || lang == STR_LANG_DE || lang == STR_LANG_FR || lang == STR_LANG_RU || lang == STR_LANG_JA;
+            // return lang == STR_LANG_EN || lang == STR_LANG_DE || lang == STR_LANG_FR || lang == STR_LANG_RU || lang == STR_LANG_JA;
+            return lang == STR_LANG_EN;
         }
         return false;
     }

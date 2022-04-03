@@ -6,7 +6,8 @@
 const char *STR_EN[] = { ""
 // help
     , "Loading..."
-    , "Press H for help"
+//  , "Press H for help"
+    , "                "
     , helpText
     , "%s@@@"
       "KILLS %d@@"
