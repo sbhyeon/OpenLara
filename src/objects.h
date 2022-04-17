@@ -890,13 +890,17 @@ struct Crystal : Controller {
     }
 
     virtual void render(Frustum *frustum, MeshBuilder *mesh, Shader::Type type, bool caustics) {
-        Core::setMaterial(0.5, 0.5, 3.0, 0.0f); // 0.0f - use vertex normal as texcoord
+        //Core::setMaterial(0.5, 0.5, 3.0, 0.0f); // 0.0f - use vertex normal as texcoord
+        Core::setMaterial(0.2, 0.2, 3.0, 1.0f); // By Johnny
         GAPI::Texture *dtex = Core::active.textures[sDiffuse];
+	/* By Johnny
         if (environment) {
             environment->bind(sDiffuse);
         } else {
             Core::whiteCube->bind(sDiffuse);
         }
+	*/
+        Core::whiteCube->bind(sDiffuse);	// By Johnny
         Controller::render(frustum, mesh, type, caustics);
         if (dtex) dtex->bind(sDiffuse);
     }
@@ -1075,7 +1079,8 @@ struct TrapSlam : Controller {
 };
 
 #define SWORD_DAMAGE 100.0f
-#define SWORD_RANGE  1536.0f
+//#define SWORD_RANGE  1536.0f By Johnny
+#define SWORD_RANGE  1280.0f
 
 struct TrapSword : Controller {
     vec3  dir;
@@ -1093,7 +1098,8 @@ struct TrapSword : Controller {
 
         if (dir.y == 0.0f) {
             dir = lara->pos - pos;
-            if (dir.y > 0 && dir.y < 3072.0f && fabsf(dir.x) < SWORD_RANGE && fabsf(dir.z) < SWORD_RANGE) {
+            //if (dir.y > 0 && dir.y < 3072.0f && fabsf(dir.x) < SWORD_RANGE && fabsf(dir.z) < SWORD_RANGE) {   By Johnny
+            if (dir.y > 0 && dir.y < 2560.0f && fabsf(dir.x) < SWORD_RANGE && fabsf(dir.z) < SWORD_RANGE) {
                 dir /= 32.0f;
                 dir.y = 50.0f;
             } else

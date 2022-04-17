@@ -386,8 +386,7 @@ struct Lara : Character {
         void integrate() {
             float TIMESTEP = Core::deltaTime;
             float ACCEL    = 16.0f * GRAVITY * 30.0f * TIMESTEP * TIMESTEP;
-            //float DAMPING  = 1.5f;	By Johnny
-            float DAMPING  = 2.0f;
+            float DAMPING  = 1.5f;
 
             if (lara->stand == STAND_UNDERWATER) {
                 ACCEL *= 0.5f;
@@ -554,7 +553,8 @@ struct Lara : Character {
             vec3 offset(0.0f);
             switch (level->version & TR::VER_VERSION) {
                 case TR::VER_TR1 :
-                    braid[0] = new Braid(this, vec3(-4.0f, 24.0f, -48.0f)); // it's just ugly :)
+                    //braid[0] = new Braid(this, vec3(-4.0f, 24.0f, -48.0f)); // it's just ugly :)
+                    braid[0] = new Braid(this, vec3(0.0f, 40.0f, -51.0f)); // it's just ugly :)
                     break;
                 case TR::VER_TR2 :
                 case TR::VER_TR3 :

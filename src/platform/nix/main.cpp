@@ -371,7 +371,7 @@ int checkLanguage() {
 
     uint16 id;
     memcpy(&id, lang, 2);
-
+/*
     if (id == TWOCC("en")) return STR_LANG_EN - STR_LANG_EN;
     if (id == TWOCC("fr")) return STR_LANG_FR - STR_LANG_EN;
     if (id == TWOCC("de")) return STR_LANG_DE - STR_LANG_EN;
@@ -389,7 +389,7 @@ int checkLanguage() {
     if (id == TWOCC("zh")) return STR_LANG_CN - STR_LANG_EN;
     if (id == TWOCC("hu")) return STR_LANG_HU - STR_LANG_EN;
     if (id == TWOCC("sv")) return STR_LANG_SV - STR_LANG_EN;
-
+*/
     return 0;
 }
 
