@@ -412,14 +412,14 @@ void inputUpdate() {
                     switch (e->code) {
                     // Left stick
                         //case ABS_X  : joyL.x = joyAxisValue(e->value); break;
-                        case ABS_X  :  
+                        case ABS_X  :  	// By Johnny
                         case ABS_HAT0X    :
                         case ABS_THROTTLE :
                     		      Input::setJoyDown(joyIndex, jkLeft,  e->value < 0);
                         	      Input::setJoyDown(joyIndex, jkRight, e->value > 0);
 				      break;
                         //case ABS_Y  : joyL.y = joyAxisValue(e->value); break;
-                        case ABS_Y  :  
+                        case ABS_Y  :  	// By Johnny
                         case ABS_HAT0Y    :
                         case ABS_RUDDER   :
                         	      Input::setJoyDown(joyIndex, jkUp,    e->value < 0);
@@ -432,7 +432,7 @@ void inputUpdate() {
                         case ABS_Z  : Input::setJoyPos(joyIndex, jkLT, joyTrigger(e->value)); break;
                     // Right trigger
                         case ABS_RZ : Input::setJoyPos(joyIndex, jkRT, joyTrigger(e->value)); break;
-/*
+/* By Johnny
                     // D-PAD
                         case ABS_HAT0X    :
                         case ABS_THROTTLE :
@@ -447,11 +447,11 @@ void inputUpdate() {
 */
                     }
 
-//                    Input::setJoyPos(joyIndex, jkL, joyDir(joyL));
-//                    Input::setJoyPos(joyIndex, jkR, joyDir(joyR));
+                    Input::setJoyPos(joyIndex, jkL, joyDir(joyL));
+                    Input::setJoyPos(joyIndex, jkR, joyDir(joyR));
                 }
             }
-            LOG("input: type = %d, code = %d, value = %d\n", int(e->type), int(e->code), int(e->value));
+            //LOG("input: type = %d, code = %d, value = %d\n", int(e->type), int(e->code), int(e->value));
             e++;
             rb -= sizeof(events[0]);
         }

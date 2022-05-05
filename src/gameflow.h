@@ -1057,18 +1057,18 @@ namespace TR {
         if (Stream::existsContent("DATA/GYM.SAT"))
             return VER_TR1_SAT;
 
-        if (Stream::existsContent("data/ASSAULT.TR2") || Stream::existsContent("assault.TR2"))
+        if (Stream::existsContent("DATA/ASSAULT.TR2") || Stream::existsContent("assault.TR2"))
             return VER_TR2_PC;
         if (Stream::existsContent("DATA/ASSAULT.PSX"))
             return VER_TR2_PSX;
 
-        if (Stream::existsContent("data/JUNGLE.TR2"))
+        if (Stream::existsContent("DATA/JUNGLE.TR2"))
             return VER_TR3_PC;
 
         if (Stream::existsContent("DATA/JUNGLE.PSX"))
             return VER_TR3_PSX;
 
-        if (Stream::existsContent("data/angkor1.tr4"))
+        if (Stream::existsContent("DATA/angkor1.tr4"))
             return VER_TR4_PC;
 
         useEasyStart = false;
@@ -1085,7 +1085,9 @@ namespace TR {
                     break;
                 case VER_TR1_PSX : sprintf(dst, "PSXDATA/%s.PSX", LEVEL_INFO[id].name); break;
                 case VER_TR1_SAT : sprintf(dst, "DATA/%s.SAT",    LEVEL_INFO[id].name); break;
-                case VER_TR2_PC  : { // oh FFFFUUUUUUCKing CaTaComB.Tr2!
+                case VER_TR2_PC  : 
+		/* Commented by Johnny
+		{ // oh FFFFUUUUUUCKing CaTaComB.Tr2!
                     if (id == LVL_TR2_VENICE || id == LVL_TR2_CUT_2 || id == LVL_TR2_PLATFORM || id == LVL_TR2_CUT_3 || id == LVL_TR2_UNWATER || 
                         id == LVL_TR2_KEEL || id == LVL_TR2_LIVING || id == LVL_TR2_DECK || id == LVL_TR2_CATACOMB || id == LVL_TR2_ICECAVE ||
                         id == LVL_TR2_CUT_4 || id == LVL_TR2_XIAN || id == LVL_TR2_HOUSE) {
@@ -1106,8 +1108,20 @@ namespace TR {
                     strcat(dst, ".TR2");
                     break;
                 }
+		*/
+		{
+                    char buf[64];
+                    strcpy(buf, LEVEL_INFO[id].name);
+                    StrUtils::toUpper(buf);
+                    sprintf(dst, "DATA/%s.TR2", buf);
+                    if (Stream::existsContent(dst)) break;
+                    StrUtils::toLower(buf);
+                    sprintf(dst, "DATA/%s.tr2", buf);
+                    break;
+		}
+
                 case VER_TR2_PSX : sprintf(dst, "DATA/%s.PSX", LEVEL_INFO[id].name); break;
-                case VER_TR3_PC  : sprintf(dst, isCutsceneLevel(id) ? "cuts/%s.TR2" : "data/%s.TR2", LEVEL_INFO[id].name); break;
+                case VER_TR3_PC  : sprintf(dst, isCutsceneLevel(id) ? "cuts/%s.TR2" : "DATA/%s.TR2", LEVEL_INFO[id].name); break;
                 case VER_TR3_PSX : sprintf(dst, isCutsceneLevel(id) ? "CUTS/%s.PSX" : "DATA/%s.PSX", LEVEL_INFO[id].name); break;
                 case VER_TR4_PC  : sprintf(dst, "DATA/%s.tr4", LEVEL_INFO[id].name); break;
                 default          : ASSERT(false);
@@ -1169,13 +1183,13 @@ namespace TR {
 
     const char* getGameSoundsFile(Version version) {
         if (version == VER_TR2_PC) {
-            CHECK_FILE("data/MAIN.SFX");    // PC
+            CHECK_FILE("DATA/MAIN.SFX");    // PC
             CHECK_FILE("MAIN.SFX");         // Android
             return "audio/2/MAIN.SFX";      // Web
         }
 
         if (version == VER_TR3_PC) {
-            CHECK_FILE("data/MAIN.SFX");    // PC
+            CHECK_FILE("DATA/MAIN.SFX");    // PC
             return "audio/3/MAIN.SFX";      // Web
         }
 
@@ -1210,7 +1224,7 @@ namespace TR {
     }
 
     bool checkTrack(const char *pre, char *name) {
-        static const char *fmt[] = { ".ogg", ".mp3", ".wav" };
+        static const char *fmt[] = { ".OGG", ".MP3", ".WAV" };
         const char *lng[] = { "", "", LANG_PREFIXES };
 
         int start = 1;
@@ -1226,6 +1240,7 @@ namespace TR {
                 strcat(buf, name);
                 strcat(buf, lng[l]);
                 strcat(buf, fmt[f]);
+                StrUtils::toUpper(buf);
                 if (Stream::existsContent(buf)) {
                     strcpy(name, buf);
                     return true;
@@ -1311,11 +1326,12 @@ namespace TR {
                     //    return;
                     //}
                     track = remapTrack(version, track);
-                    sprintf(title, "track_%02d", track);
-                    if (!checkTrack("", title) && !checkTrack("audio/2/", title) && !checkTrack("audio/", title)) {
-                        callback(NULL, userData);
-                        return;
-                    }
+                    //sprintf(title, "track_%02d", track);
+                    //if (!checkTrack("", title) && !checkTrack("audio/2/", title) && !checkTrack("audio/", title)) {
+                    //    callback(NULL, userData);
+                    //    return;
+                    //}
+                    sprintf(title, "music/TRACK%02d.OGG", track);	// By Johnny
                     break;
                 case VER_TR3_PC  :
                 case VER_TR3_PSX :
@@ -1355,7 +1371,8 @@ namespace TR {
                 case VER_TR2_PC  :
                 case VER_TR2_PSX :
                     track = remapTrack(version, track);
-                    sprintf(title, "audio/2/track_%02d.ogg", track);
+                    //sprintf(title, "audio/2/track_%02d.ogg", track);
+                    sprintf(title, "music/TRACK%02d.OGG", track);	// By Johnny
                     break;
                 case VER_TR3_PC  :
                 case VER_TR3_PSX :
@@ -1422,8 +1439,8 @@ namespace TR {
                 return "level/1/ATLANLOA.PNG";
         // TR2
             case LVL_TR2_TITLE :
-                CHECK_FILE("TITLE.png");            // Android
-                CHECK_FILE("data/TITLE.PCX");       // PC
+                CHECK_FILE("TITLE.PNG");            // Android
+                CHECK_FILE("DATA/TITLE.PCX");       // PC
                 CHECK_FILE("pix/title.pcx");        // PC
                 CHECK_FILE("PIXUS/TITLEUS.RAW");    // PSX US
                 CHECK_FILE("PIXJAP/TITLEJAP.RAW");  // PSX US
@@ -1622,43 +1639,43 @@ namespace TR {
         // TR2
             case LVL_TR2_TITLE    :
                 CHECK_FILE("FMV/ANCIENT.FMV");
-                CHECK_FILE("fmv/ANCIENT.RPL");
+                CHECK_FILE("FMV/ANCIENT.RPL");
                 CHECK_FILE("video/2/ANCIENT.FMV");
                 CHECK_FILE("video/2/ANCIENT.RPL");
                 break;
             case LVL_TR2_WALL     :
                 CHECK_FILE("FMV/MODERN.FMV");
-                CHECK_FILE("fmv/MODERN.RPL");
+                CHECK_FILE("FMV/MODERN.RPL");
                 CHECK_FILE("video/2/MODERN.FMV");
                 CHECK_FILE("video/2/MODERN.RPL");
                 break;
             case LVL_TR2_RIG      :
                 CHECK_FILE("FMV/LANDING.FMV");
-                CHECK_FILE("fmv/LANDING.RPL");
+                CHECK_FILE("FMV/LANDING.RPL");
                 CHECK_FILE("video/2/LANDING.FMV");
                 CHECK_FILE("video/2/LANDING.RPL");
                 break;
             case LVL_TR2_UNWATER  :
                 CHECK_FILE("FMV/MS.FMV");
-                CHECK_FILE("fmv/MS.RPL");
+                CHECK_FILE("FMV/MS.RPL");
                 CHECK_FILE("video/2/MS.FMV");
                 CHECK_FILE("video/2/MS.RPL");
                 break;
             case LVL_TR2_SKIDOO   :
                 CHECK_FILE("FMV/CRASH.FMV");
-                CHECK_FILE("fmv/CRASH.RPL");
+                CHECK_FILE("FMV/CRASH.RPL");
                 CHECK_FILE("video/2/CRASH.FMV");
                 CHECK_FILE("video/2/CRASH.RPL");
                 break;
             case LVL_TR2_EMPRTOMB :
                 CHECK_FILE("FMV/JEEP.FMV");
-                CHECK_FILE("fmv/JEEP.RPL");
+                CHECK_FILE("FMV/JEEP.RPL");
                 CHECK_FILE("video/2/JEEP.FMV");
                 CHECK_FILE("video/2/JEEP.RPL");
                 break;
             case LVL_TR2_HOUSE    :
                 CHECK_FILE("FMV/END.FMV");
-                CHECK_FILE("fmv/END.RPL");
+                CHECK_FILE("FMV/END.RPL");
                 CHECK_FILE("video/2/END.FMV");
                 CHECK_FILE("video/2/END.RPL");
                 break;
@@ -1666,33 +1683,33 @@ namespace TR {
             case LVL_TR3_TITLE :
                 if (isGameEnded) {
                     CHECK_FILE("FMV/END.FMV");
-                    CHECK_FILE("fmv/Endgame.rpl");
+                    CHECK_FILE("FMV/ENDGAME.RPL");
                     CHECK_FILE("video/3/END.FMV");
-                    CHECK_FILE("video/3/Endgame.rpl");
+                    CHECK_FILE("video/3/ENDGAME.RPL");
                 } else {
                     CHECK_FILE("FMV/INTRO.FMV");
-                    CHECK_FILE("fmv/Intr_Eng.rpl");
+                    CHECK_FILE("FMV/INTR_ENG.RPL");
                     CHECK_FILE("video/3/INTRO.FMV");
-                    CHECK_FILE("video/3/Intr_Eng.rpl");
+                    CHECK_FILE("video/3/INTR_ENG.RPL");
                 }
                 break;
             case LVL_TR3_SHORE :
                 CHECK_FILE("FMV/LAGOON.FMV");
-                CHECK_FILE("fmv/Sail_Eng.rpl");
+                CHECK_FILE("FMV/SAIL_ENG.RPL");
                 CHECK_FILE("video/3/LAGOON.FMV");
-                CHECK_FILE("video/3/Sail_Eng.rpl");
+                CHECK_FILE("video/3/SAIL_ENG.RPL");
                 break;
             case LVL_TR3_ANTARC :
                 CHECK_FILE("FMV/HUEY.FMV");
-                CHECK_FILE("fmv/Crsh_Eng.rpl");
+                CHECK_FILE("FMV/CRSH_ENG.RPL");
                 CHECK_FILE("video/3/HUEY.FMV");
-                CHECK_FILE("video/3/Crsh_Eng.rpl");
+                CHECK_FILE("video/3/CRSH_ENG.RPL");
                 break;
             case LVL_TR3_STPAUL :
                 CHECK_FILE("FMV/END.FMV");
-                CHECK_FILE("fmv/Endgame.rpl");
+                CHECK_FILE("FMV/ENDGAME.RPL");
                 CHECK_FILE("video/3/END.FMV");
-                CHECK_FILE("video/3/Endgame.rpl");
+                CHECK_FILE("video/3/ENDGAME.RPL");
                 break;
             default : ;
         }

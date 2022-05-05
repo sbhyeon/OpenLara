@@ -55,11 +55,6 @@
     #endif
 #endif
 
-// By Johnny
-#ifdef _OS_RPI
-    #define LOG(...)	0
-#endif
-
 #ifdef _OS_PSV
     #undef LOG
     #define LOG(...) psvDebugScreenPrintf(__VA_ARGS__)
@@ -1572,6 +1567,16 @@ namespace StrUtils {
         while (char &c = *str++) {
             if (c >= 'A' && c <= 'Z')
                 c -= 'Z' - 'z';
+        }
+    }
+
+// By Johnny
+    void toUpper(char *str) {
+        if (!str) return;
+
+        while (char &c = *str++) {
+            if (c >= 'a' && c <= 'z')
+                c += 'Z' - 'z';
         }
     }
 
