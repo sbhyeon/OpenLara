@@ -9,7 +9,7 @@
 #define SUBTITLES_SPEED  0.1f
 #define TEXT_LINE_HEIGHT 18
 
-#if defined(_OS_TNS)
+#if defined(_OS_TNS)|| defined(_OS_RPI)	// By Johnny
     #define UI_SHOW_FPS
 #endif
 
@@ -634,16 +634,9 @@ namespace UI {
                 subsGetNextPart();
             }
         }
-/*
+
         if (Input::down[ikH]) {
             Input::down[ikH] = false;
-            showHelp = !showHelp;
-            helpTipTime = 0.0f;
-        }
-By Johnny */
-
-        if (Input::down[ikF]) {
-            Input::down[ikF] = false;
             showHelp = !showHelp;
             helpTipTime = 0.0f;
         }
@@ -734,7 +727,6 @@ By Johnny */
         if (hintTime > 0.0f) {
             textOut(vec2(16, 32), hintStr, aLeft, width - 32, 255, UI::SHADE_GRAY);
         }
-/*
     #if defined(_OS_WEB) || defined(_OS_WIN) || defined(_OS_LINUX) || defined(_OS_MAC) || defined(_OS_RPI)
         if (showHelp) {
             textOut(vec2(32, 32), STR_HELP_TEXT, aLeft, width - 32, 255, UI::SHADE_GRAY);
@@ -750,7 +742,6 @@ By Johnny */
         sprintf(buf, "%d", Core::stats.fps);
         textOut(vec2(0, 16), buf, aLeft, width, 255, UI::SHADE_ORANGE);
     #endif
-By Johnny */
 
         if (showHelp) {
             char buf[256];

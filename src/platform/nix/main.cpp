@@ -400,7 +400,11 @@ int main(int argc, char **argv) {
     if (!(home = getenv("HOME")))
         home = getpwuid(getuid())->pw_dir;
     strcat(cacheDir, home);
-    strcat(cacheDir, "/.openlara/");
+    //strcat(cacheDir, "/.openlara/");
+    char name_prog[255];
+    sprintf(name_prog, "/.%s_save/", strrchr(argv[0], '/'));
+    strcat(cacheDir, name_prog);
+    LOG("SAVEFILE: %s\n", cacheDir);
 
     struct stat st = {0};
     if (stat(cacheDir, &st) == -1 && mkdir(cacheDir, 0777) == -1)

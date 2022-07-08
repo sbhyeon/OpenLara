@@ -218,7 +218,6 @@
     #define GL_UNSIGNED_INT_24_8    GL_UNSIGNED_INT_24_8_OES
     #define GL_PROGRAM_BINARY_LENGTH     GL_PROGRAM_BINARY_LENGTH_OES
 
-    //#define glTexImage3D(...) 0
     #define glTexImage3D 	 glTexImage3DOES
 
     //#define PFNGLGENVERTEXARRAYSPROC    PFNGLGENVERTEXARRAYSOESPROC
@@ -1540,7 +1539,8 @@ namespace GAPI {
                 return items.push(item);
             }
 
-        if (items.length >= MAX_RENDER_BUFFERS) {
+        //if (items.length >= MAX_RENDER_BUFFERS) {
+        if (items.length >= 2) {	// By Johnny
             glDeleteRenderbuffers(1, &items[0].ID);
             items.remove(0);
         }
