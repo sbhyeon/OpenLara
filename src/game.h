@@ -286,12 +286,12 @@ namespace Game {
         if (level->isEnded)
             return true;
 
-    #ifdef _DEBUG
+//  #ifdef _DEBUG	By Johnny
         if (Input::down[ikF]) {
             level->flipMap();
             Input::down[ikF] = false;
         }
-    #endif
+//  #endif
 
     #ifdef _DEBUG_SHADERS
         if (Input::down[ikCtrl] && Input::down[ik1]) {

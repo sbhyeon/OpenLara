@@ -436,7 +436,6 @@ void inputUpdate() {
                     Input::setJoyPos(joyIndex, jkR, joyDir(joyR));
                 }
             }
-	    // Log By Johnny
             //LOG("input: type = %d, code = %d, value = %d\n", int(e->type), int(e->code), int(e->value));
             e++;
             rb -= sizeof(events[0]);

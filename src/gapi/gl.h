@@ -1539,8 +1539,7 @@ namespace GAPI {
                 return items.push(item);
             }
 
-        //if (items.length >= MAX_RENDER_BUFFERS) {
-        if (items.length >= 2) {	// By Johnny
+            if (items.length >= MAX_RENDER_BUFFERS) {
             glDeleteRenderbuffers(1, &items[0].ID);
             items.remove(0);
         }

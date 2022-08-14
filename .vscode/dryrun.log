@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/hsb/다운로드/OpenLara'
+make: Leaving directory '/home/hsb/다운로드/OpenLara'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+

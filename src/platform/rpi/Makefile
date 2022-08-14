@@ -3,7 +3,7 @@ BIN=../../../bin/OpenLara.bin
 CC=gcc
 CXX=g++
 AR=/usr/bin/ar
-CFLAGS+=-D__RPI__ -ggdb
+CFLAGS+=-D__RPI__
 SDKSTAGE=""
 
 LDFLAGS+=-L$(SDKSTAGE)/opt/vc/lib/ -lbrcmGLESv2 -lbrcmEGL -lbcm_host -lvcos -lvchiq_arm -lpthread -lrt -lm -L$(SDKSTAGE)/opt/vc/src/hello_pi/libs/vgfont

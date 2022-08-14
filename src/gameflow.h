@@ -530,7 +530,7 @@ namespace TR {
             case 1074234 : version = VER_TR1_PSX;
             case 343854  : // SAT
             case 3377974 : // PC JAP
-            case 2069503 :
+            case 2069503 : // Sabatu's TR1
             case 3236806 :
             case 3282970 : // PC G
             case 3237128 : return LVL_TR1_GYM;
@@ -539,7 +539,7 @@ namespace TR {
             case 1448896 : version = VER_TR1_PSX;
             case 497656  : // SAT
             case 2540906 : // PC JAP
-            case 3894894 :
+            case 3894894 : // Sabatu's TR1
             case 2533312 :
             case 2533634 : return LVL_TR1_1;
             // LEVEL2
@@ -548,7 +548,7 @@ namespace TR {
             case 1535734 : version = VER_TR1_PSX;
             case 532250  : // SAT
             case 2880722 : // PC JAP
-            case 5272917 :
+            case 5272917 : // Sabatu's TR1
             case 2873128 :
             case 2873450 : return LVL_TR1_2;
             // LEVEL3A
@@ -556,7 +556,7 @@ namespace TR {
             case 1630560 : version = VER_TR1_PSX;
             case 547782  : // SAT
             case 2942002 : // PC JAP
-            case 4575242 :
+            case 4575242 : // Sabatu's TR1
             case 2934408 :
             case 2934730 : return LVL_TR1_3A;
             // LEVEL3B
@@ -564,7 +564,7 @@ namespace TR {
             case 1506614 : version = VER_TR1_PSX;
             case 310960  : // SAT
             case 2745530 : // PC JAP
-            case 5176043 :
+            case 5176043 : // Sabatu's TR1
             case 2737936 :
             case 2738258 : return LVL_TR1_3B;
             // CUT1
@@ -576,7 +576,7 @@ namespace TR {
             case 1621970 : version = VER_TR1_PSX;
             case 440612  : // SAT
             case 3038144 : // PC JAP
-            case 4831980 :
+            case 4831980 : // Sabatu's TR1
             case 3030550 :
             case 3030872 : return LVL_TR1_4;
             // LEVEL5
@@ -584,7 +584,7 @@ namespace TR {
             case 1585942 : version = VER_TR1_PSX;
             case 389996  : // SAT
             case 2725812 : // PC JAP
-            case 4750043 :
+            case 4750043 : // Sabatu's TR1
             case 2718218 :
             case 2718540 : return LVL_TR1_5;
             // LEVEL6
@@ -592,7 +592,7 @@ namespace TR {
             case 1708464 : version = VER_TR1_PSX;
             case 573506  : // SAT
             case 3147184 : // PC JAP
-            case 5239497 :
+            case 5239497 : // Sabatu's TR1
             case 3139590 :
             case 3074376 : return LVL_TR1_6;
             // LEVEL7A
@@ -600,7 +600,7 @@ namespace TR {
             case 1696664 : version = VER_TR1_PSX;
             case 581416  : // SAT
             case 2824884 : // PC JAP
-            case 3681615 :
+            case 3681615 : // Sabatu's TR1
             case 2817290 :
             case 2817612 : return LVL_TR1_7A;
             // LEVEL7B
@@ -608,7 +608,7 @@ namespace TR {
             case 1733274 : version = VER_TR1_PSX;
             case 596416  : // SAT
             case 3603912 : // PC JAP
-            case 4325960 :
+            case 4325960 : // Sabatu's TR1
             case 3388774 :
             case 3395618 : // PC G
             case 3389096 : return LVL_TR1_7B;
@@ -621,7 +621,7 @@ namespace TR {
             case 1563356 : version = VER_TR1_PSX;
             case 592188  : // SAT
             case 2887836 : // PC JAP
-            case 5622491 :
+            case 5622491 : // Sabatu's TR1
             case 2880242 :
             case 2880564 : return LVL_TR1_8A;
             // LEVEL8B
@@ -629,7 +629,7 @@ namespace TR {
             case 1565630 : version = VER_TR1_PSX;
             case 599928  : // SAT
             case 2894028 : // PC JAP
-            case 5050572 :
+            case 5050572 : // Sabatu's TR1
             case 2886434 :
             case 2886756 : return LVL_TR1_8B;
             // LEVEL8C
@@ -637,7 +637,7 @@ namespace TR {
             case 1619360 : version = VER_TR1_PSX;
             case 536950  : // SAT
             case 3072066 : // PC JAP
-            case 5085787 :
+            case 5085787 : // Sabatu's TR1
             case 3105128 :
             case 3025380 : // PC G
             case 3105450 : return LVL_TR1_8C;
@@ -646,7 +646,7 @@ namespace TR {
             case 1678018 : version = VER_TR1_PSX;
             case 569856  : // SAT
             case 3270372 : // PC JAP
-            case 6254777 :
+            case 6254777 : // Sabatu's TR1
             case 3223816 :
             case 3154346 : // PC G
             case 3224138 : return LVL_TR1_10A;
@@ -659,7 +659,7 @@ namespace TR {
             case 1686748 : version = VER_TR1_PSX;
             case 525646  : // SAT
             case 3101614 : // PC JAP
-            case 5474756 :
+            case 5474756 : // Sabatu's TR1
             case 3094342 :
             case 3094020 : return LVL_TR1_10B;
             // CUT4
@@ -672,7 +672,7 @@ namespace TR {
             case 418170  : // SAT
             case 3533814 : // PC JAP
             case 3531702 :
-            case 5746884 :
+            case 5746884 : // Sabatu's TR1
             case 3496692 : // PC G
             case 3532024 : return LVL_TR1_10C;
             // EGYPT
@@ -1380,7 +1380,8 @@ namespace TR {
                         }
                     }
                 #ifndef _OS_WEB
-                    if (Stream::existsContent(title)) break;
+                    if (Stream::existsContent(title))
+                        break;
                     track = remapTrack(version, track);
                     sprintf(title, "AUDIO/1/%03d.OGG", track);
                 #endif

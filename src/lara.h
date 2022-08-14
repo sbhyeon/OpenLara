@@ -419,7 +419,7 @@ struct Lara : Character {
                 if (joints[j].pos.y > info.floor)
                     joints[j].pos.y = info.floor;
 
-            #define BRAID_RADIUS 14.0f
+            #define BRAID_RADIUS 16.0f
 
             lara->updateJoints();
 
