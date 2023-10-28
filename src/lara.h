@@ -554,6 +554,7 @@ struct Lara : Character {
             switch (level->version & TR::VER_VERSION) {
                 case TR::VER_TR1 :
                     //braid[0] = new Braid(this, vec3(-4.0f, 24.0f, -48.0f)); // it's just ugly :)
+                    braid[0] = new Braid(this, vec3(-4.0f, 24.0f, -48.0f)); // By Johnny
                     break;
                 case TR::VER_TR2 :
                 case TR::VER_TR3 :

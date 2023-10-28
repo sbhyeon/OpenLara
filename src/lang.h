@@ -2,6 +2,7 @@
 #define H_LANG
 
 // Thanks: SuiKaze Raider
+// Remove FI, CZ, CN, HU, SV and Add KO by Johnny
 
 enum StringID {
       STR_EMPTY
@@ -26,6 +27,7 @@ enum StringID {
     , STR_QUALITY_MEDIUM
     , STR_QUALITY_HIGH
     , STR_LANG_EN
+/*	By Johnny
     , STR_LANG_FR
     , STR_LANG_DE
     , STR_LANG_ES
@@ -40,6 +42,8 @@ enum StringID {
     , STR_LANG_CN
     , STR_LANG_HU
     , STR_LANG_SV
+*/
+    , STR_LANG_KO	// By Johnny
     , STR_APPLY
     , STR_GAMEPAD_1
     , STR_GAMEPAD_2
@@ -259,7 +263,7 @@ enum StringID {
 #else
     #define STR_RUSSIAN "–усски{и"
 #endif
-
+/*	Removed by Johnny
 #define STR_LANGUAGES \
       "English"       \
     , "Fran|cais"     \
@@ -273,11 +277,16 @@ enum StringID {
     , "\x11\x01\x22\x01\x0F\x01\x0F\x01\x0E\x01\x06\x01\x04\x01\x0C\x01\x0B\xFF\xFF" \
     , "Suomi"         \
     , "{Cesky"        \
-    , "\x11\x02\x8A\x02\x6C\x01\x54\x03\x02\xFF\xFF" \
+    , "Chinese" \
     , "Magyar" \
     , "Svenska"
+*/
+#define STR_LANGUAGES \
+      "English"       \
+    , "Korean" 	// By Johnny
 
-#define LANG_PREFIXES "_EN", "_FR", "_DE", "_ES", "_IT", "_PL", "_PT", "_RU", "_JA", "_GR", "_FI", "_CZ", "_CN", "_HU", "_SV"
+//#define LANG_PREFIXES "_EN", "_FR", "_DE", "_ES", "_IT", "_PL", "_PT", "_RU", "_JA", "_GR", "_FI", "_CZ", "_KO", "_HU", "_SV"
+#define LANG_PREFIXES "_EN", "_KO"	// By Johnny
 
 #define STR_KEYS \
       "NONE", "LEFT", "RIGHT", "UP", "DOWN", "SPACE", "TAB", "ENTER", "ESCAPE", "SHIFT", "CTRL", "ALT" \
@@ -312,25 +321,27 @@ const char *helpText =
     "Free Camera - hold L & R stick";
 
 #include "lang/en.h"
-#include "lang/fr.h"
-#include "lang/de.h"
-#include "lang/es.h"
-#include "lang/it.h"
-#include "lang/pl.h"
-#include "lang/pt.h"
-#include "lang/ru.h"
-#include "lang/ja.h"
-#include "lang/gr.h"
-#include "lang/fi.h"
-#include "lang/cz.h"
-#include "lang/cn.h"
-#include "lang/hu.h"
-#include "lang/sv.h"
+//#include "lang/fr.h"
+//#include "lang/de.h"
+//#include "lang/es.h"
+//#include "lang/it.h"
+//#include "lang/pl.h"
+//#include "lang/pt.h"
+//#include "lang/ru.h"
+//#include "lang/ja.h"
+//#include "lang/gr.h"
+//#include "lang/fi.h"
+//#include "lang/cz.h"
+//#include "lang/ko.h"
+//#include "lang/hu.h"
+//#include "lang/sv.h"
+#include "lang/ko.h"	// By Johnny
 
 char **STR = NULL;
 
 void ensureLanguage(int lang) {
     ASSERT(COUNT(STR_EN) == STR_MAX);
+/*
     ASSERT(COUNT(STR_FR) == STR_MAX);
     ASSERT(COUNT(STR_DE) == STR_MAX);
     ASSERT(COUNT(STR_ES) == STR_MAX);
@@ -345,10 +356,13 @@ void ensureLanguage(int lang) {
     ASSERT(COUNT(STR_CN) == STR_MAX);
     ASSERT(COUNT(STR_HU) == STR_MAX);
     ASSERT(COUNT(STR_SV) == STR_MAX);
+*/
+    ASSERT(COUNT(STR_KO) == STR_MAX);	// By Johnny
 
     lang += STR_LANG_EN;
 
     switch (lang) {
+/*
         case STR_LANG_FR : STR = (char**)STR_FR; break;
         case STR_LANG_DE : STR = (char**)STR_DE; break;
         case STR_LANG_ES : STR = (char**)STR_ES; break;
@@ -363,6 +377,8 @@ void ensureLanguage(int lang) {
         case STR_LANG_CN : STR = (char**)STR_CN; break;
         case STR_LANG_HU : STR = (char**)STR_HU; break;
         case STR_LANG_SV : STR = (char**)STR_SV; break;
+*/
+        case STR_LANG_KO : STR = (char**)STR_KO; break;		// By Johnny
         default          : STR = (char**)STR_EN; break;
     }
 }
