@@ -1344,11 +1344,7 @@ struct Level : IGame {
         }
         return 0; // RU
 */
-        if (index >= KO_GLYPH_COUNT) {
-            index -= KO_GLYPH_COUNT;
-        	return 1 + index / 256; // KO
-		}
-        return 0 + index / 256;	// Test temp 
+        return 0 + index / 256;	// KO 
 
     }
 
