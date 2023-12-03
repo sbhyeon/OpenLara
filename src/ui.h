@@ -47,55 +47,45 @@ namespace UI {
     Array<PickupItem> pickups;
 
     int advGlyphsStart;
-/*
     #define RU_MAP              "ÁÃÄÆÇÈËÏÓÔÖ×ØÙÚÛÜÝÞßáâãäæçêëìíïòôö÷øùúûüýþÿ" "i~\"^"
     #define RU_GLYPH_COUNT      (COUNT(RU_MAP) - 1)
     #define RU_GLYPH_START      102
     #define RU_GLYPH_UPPERCASE  20
-*/
     #define CHAR_SPR_TILDA      154
     #define CHAR_SPR_I          153
     #define CHAR_SPR_QUOTE      155
     #define CHAR_SPR_AUH        156
 
-//  const static uint8 char_width[110 + RU_GLYPH_COUNT] = {
-    const static uint8 char_width[110] = {	// By Johnny
+  const static uint8 char_width[110 + RU_GLYPH_COUNT] = {
         14, 11, 11, 11, 11, 11, 11, 13, 8, 11, 12, 11, 13, 13, 12, 11, 12, 12, 11, 12, 13, 13, 13, 12, 12, 11, // A-Z
         9, 9, 9, 9, 9, 9, 9, 9, 5, 9, 9, 5, 12, 10, 9, 9, 9, 8, 9, 8, 9, 9, 11, 9, 9, 9, // a-z
         12, 8, 10, 10, 10, 10, 10, 9, 10, 10, // 0-9
         5, 5, 5, 11, 9, 7, 8, 6, 0, 7, 7, 3, 8, 8, 13, 7, 9, 4, 12, 12, 
         7, 5, 7, 7, 7, 7, 7, 7, 7, 7, 16, 14, 14, 14, 16, 16, 16, 16, 16, 12, 14, 8, 8, 8, 8, 8, 8, 8,
-/*
     // cyrillic
         11, 11, 11, 13, 10, 13, 11, 11, 12, 12, 11,  9, 13, 13, 10, 13, // ÁÃÄÆÇÈËÏÓÔÖ×ØÙÚÛ
          9, 11, 12, 11, 10,  9,  8, 10, 11,  9, 10, 10, 11,  9, 10, 12, // ÜÝÞßáâãäæçêëìíïò
         10, 10,  9, 11, 12,  9, 11,  8,  9, 13,  9,                     // ôö÷øùúûüýþÿ
     // additional
         5, 10, 10, 10 // i~"^
-*/
     }; 
         
-//  static const uint8 char_map[102 + 33*2] = {
-    static const uint8 char_map[102] = {	// By Johnny
+  static const uint8 char_map[102 + 33*2] = {
             0, 64, 66, 78, 77, 74, 78, 79, 69, 70, 92, 72, 63, 71, 62, 68, 52, 53, 54, 55, 56, 57, 58, 59, 
         60, 61, 73, 73, 66, 74, 75, 65, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 
         18, 19, 20, 21, 22, 23, 24, 25, 80, 76, 81, 97, 98, 77, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 
         37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 100, 101, 102, 67, 0, 0, 0, 0, 0, 0, 0,
-/*
     // cyrillic
         0, 110, 0, 111, 112, 0, 113, 114, 115, 0, 0, 116, 0, 0, 0, 117, 0, 0, 0, 118, 119, 0, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129,
         0, 130, 131, 132, 133, 0, 134, 135, 0, 0, 136, 137, 138, 139, 0, 140, 0, 0, 141, 0, 142, 0, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152,
-*/
     };
 
     enum Align  { aLeft, aRight, aCenter, aCenterV };
 
     inline int charRemap(char c) {
-/*
         if (isCyrillic(c)) {
             return char_map[RU_GLYPH_START + (c - 'À')];
         }
-*/
         if (c < 11)
             return c + 81;
         if (c < 16)
@@ -109,21 +99,18 @@ namespace UI {
     }
 
     inline bool upperCase(int index) {
-//      return index < 26 || (index >= 110 && (index < 110 + RU_GLYPH_UPPERCASE));
-        return index < 26;
+        return index < 26 || (index >= 110 && (index < 110 + RU_GLYPH_UPPERCASE));
     }
 
     void patchGlyphs(TR::Level &level) {
         UI::advGlyphsStart = level.spriteTexturesCount;
 
     // init new sprites array with additional sprites
-	//  TR::TextureInfo *newSprites = new TR::TextureInfo[level.spriteTexturesCount + RU_GLYPH_COUNT + JA_GLYPH_COUNT + GR_GLYPH_COUNT + KO_GLYPH_COUNT];
-        TR::TextureInfo *newSprites = new TR::TextureInfo[level.spriteTexturesCount + KO_GLYPH_COUNT];	// By Johnny
+	  TR::TextureInfo *newSprites = new TR::TextureInfo[level.spriteTexturesCount + RU_GLYPH_COUNT + JA_GLYPH_COUNT + GR_GLYPH_COUNT + CN_GLYPH_COUNT + KO_GLYPH_COUNT];
 
     // copy original sprites
         memcpy(newSprites, level.spriteTextures, sizeof(TR::TextureInfo) * level.spriteTexturesCount);
         TR::TextureInfo *glyphSprite = newSprites + level.spriteTexturesCount;
-/*	Removed by Johnny
     // append russian glyphs
         for (int i = 0; i < RU_GLYPH_COUNT; i++) {
             int idx = 110 + i; // mapped index
@@ -151,14 +138,12 @@ namespace UI {
         for (int i = 0; i < CN_GLYPH_COUNT; i++) {
             *glyphSprite++ = TR::TextureInfo(TR::TEX_TYPE_SPRITE, 0, -16, 16, 0, (i % 16) * 16, ((i % 256) / 16) * 16, 16, 16);
         }
-*/
     // append korean glyphs
         for (int i = 0; i < KO_GLYPH_COUNT; i++) {
             *glyphSprite++ = TR::TextureInfo(TR::TEX_TYPE_SPRITE, 0, -16, 16, 0, (i % 16) * 16, ((i % 256) / 16) * 16, 16, 16);
         }
 
-     // level.spriteTexturesCount += RU_GLYPH_COUNT + JA_GLYPH_COUNT + GR_GLYPH_COUNT + CN_GLYPH_COUNT;
-        level.spriteTexturesCount += KO_GLYPH_COUNT;	// By Johnny
+        level.spriteTexturesCount += RU_GLYPH_COUNT + JA_GLYPH_COUNT + GR_GLYPH_COUNT + CN_GLYPH_COUNT + KO_GLYPH_COUNT;
 
         delete[] level.spriteTextures;
         TR::gSpriteTextures      = level.spriteTextures = newSprites;
@@ -167,8 +152,7 @@ namespace UI {
 
     bool isWideCharStart(char c) {
         int lang = Core::settings.audio.language + STR_LANG_EN;
-     // if (lang == STR_LANG_JA || lang == STR_LANG_GR || lang == STR_LANG_CN)
-        if (lang == STR_LANG_KO)
+        if (lang == STR_LANG_JA || lang == STR_LANG_GR || lang == STR_LANG_CN || lang == STR_LANG_KO)
             return c == '\x11';
         return false;
     }
@@ -185,7 +169,6 @@ namespace UI {
 
     uint16 getWideCharGlyphWidth(uint16 glyph) {
         int lang = Core::settings.audio.language + STR_LANG_EN;
-/*
         if (lang == STR_LANG_JA) {
             ASSERT(glyph < JA_GLYPH_COUNT);
             return 16;
@@ -198,7 +181,6 @@ namespace UI {
             ASSERT(glyph < CN_GLYPH_COUNT);
             return 16;
         }
-*/
         if (lang == STR_LANG_KO) {
             ASSERT(glyph < KO_GLYPH_COUNT);
             return 16;
@@ -208,13 +190,10 @@ namespace UI {
 
     int getWideCharGlyphIndex(uint16 glyph) {
         int lang = Core::settings.audio.language + STR_LANG_EN;
-/*
         glyph += UI::advGlyphsStart + RU_GLYPH_COUNT;
         if (lang == STR_LANG_JA) return glyph; glyph += JA_GLYPH_COUNT;
         if (lang == STR_LANG_GR) return glyph; glyph += GR_GLYPH_COUNT;
         if (lang == STR_LANG_CN) return glyph; glyph += CN_GLYPH_COUNT;
-*/
-        glyph += UI::advGlyphsStart;
         if (lang == STR_LANG_KO) return glyph; glyph += KO_GLYPH_COUNT;
         ASSERT(false);
         return glyph;
@@ -236,7 +215,7 @@ namespace UI {
             }
 
             if (c == '[') break;
-         // c = remapCyrillic(c);
+            c = remapCyrillic(c);
             if (c == '\xBF') c = '?';
             if (c == '\xA1') c = '!';
 
@@ -269,7 +248,7 @@ namespace UI {
             }
 
             if (c == '[') break;
-         // c = remapCyrillic(c);
+            c = remapCyrillic(c);
             if (c == '\xBF') c = '?';
             if (c == '\xA1') c = '!';
 
@@ -432,7 +411,7 @@ namespace UI {
             bool invertX = false, invertY = false;
             int dx = 0, dy = 0;
 
-         // c = remapCyrillic(c);
+            c = remapCyrillic(c);
             if (c == '\xBF') { c = '?'; invertX = invertY = true; }
             if (c == '\xA1') { c = '!'; invertX = invertY = true; }
 
@@ -481,8 +460,7 @@ namespace UI {
             bool isSkipChar = skipChar(c) && *text && *text != '@';
 
             if (isSkipChar) {
-             // int idx = charRemap(remapCyrillic(*text));
-                int idx = charRemap(*text);
+                int idx = charRemap(remapCyrillic(*text));
                 bool isUppderCase = upperCase(idx);
                 
                 if (c == '{') {
@@ -777,13 +755,13 @@ namespace UI {
     #endif
 */
 // By Johnny.. display FPS
-    	if (showFPS) {
-        	char buf[10];
-        	sprintf(buf, "%3d", Core::stats.fps);
-        	textOut(vec2(0, 16), buf, aLeft, width, 255, UI::SHADE_ORANGE);
-		} else {
-        	textOut(vec2(0, 16), "      ", aLeft, width, 255, UI::SHADE_ORANGE);
-		}
+    	  if (showFPS) {
+        	  char buf[10];
+        	  sprintf(buf, "%3d", Core::stats.fps);
+        	  textOut(vec2(0, 16), buf, aLeft, width, 255, UI::SHADE_ORANGE);
+		    } else {
+        	  textOut(vec2(0, 16), "      ", aLeft, width, 255, UI::SHADE_ORANGE);
+		    }
     }
 
     void renderSubs() {

@@ -1317,24 +1317,26 @@ struct Level : IGame {
     #define ATLAS_PAGE_GLYPHS 8192
 
     AtlasTile *tileData;
-/*
     uint8 *glyphsRU;
     uint8 *glyphsJA;
     uint8 *glyphsGR;
     uint8 *glyphsCN;
-*/
     uint8 *glyphsKO;	// By Johnny
 
     static int getAdvGlyphPage(int index) {
         index -= UI::advGlyphsStart;
-/*	By Johnny
         if (index >= RU_GLYPH_COUNT) {
             index -= RU_GLYPH_COUNT;
             if (index >= JA_GLYPH_COUNT) {
                 index -= JA_GLYPH_COUNT;
                 if (index >= GR_GLYPH_COUNT) {
                     index -= GR_GLYPH_COUNT;
-                    return 4 + index / 256; // CN
+                    if (index >= CN_GLYPH_COUNT) {
+                        index -= CN_GLYPH_COUNT;
+                        return 8 + index / 256; // KO
+                    } else {
+                        return 4 + index / 256; // CN
+                    }
                 } else {
                     return 3; // GR
                 }
@@ -1343,9 +1345,6 @@ struct Level : IGame {
             }
         }
         return 0; // RU
-*/
-        return 0 + index / 256;	// KO 
-
     }
 
     static void fillCallback(Atlas *atlas, int id, int tileX, int tileY, int atlasWidth, int atlasHeight, Atlas::Tile &tile, void *userData, void *data) {
@@ -1411,7 +1410,6 @@ struct Level : IGame {
                         uv.w -= offset;
                         Color32 *glyphsData = NULL;
 
-/*
                         switch (page) {
                             case 0  : glyphsData = (Color32*)owner->glyphsRU; break;
                             case 1  :
@@ -1421,11 +1419,10 @@ struct Level : IGame {
                             case 5  :
                             case 6  :
                             case 7  : glyphsData = (Color32*)owner->glyphsCN + (page - 4) * 256 * 256; break;
+                            case 8  :
+                            case 9  : glyphsData = (Color32*)owner->glyphsKO + (page - 8) * 256 * 256; break;
                             default : ASSERT(false);
                         }
-*/
-
-                        glyphsData = (Color32*)owner->glyphsKO + (page * 256 * 256); 	// By Johnny
 
                         level->fillObjectTexture32(owner->tileData, glyphsData, uv, tile.tex);
                     }
@@ -1611,7 +1608,6 @@ struct Level : IGame {
         #endif
 
         UI::patchGlyphs(level);
-/*
         {
             uint32 glyphsW, glyphsH;
             Stream stream(NULL, GLYPH_RU, size_GLYPH_RU);
@@ -1635,7 +1631,7 @@ struct Level : IGame {
             Stream stream(NULL, GLYPH_CN, size_GLYPH_CN);
             glyphsCN = Texture::LoadBMP(stream, glyphsW, glyphsH);
         }
-*/
+
         {
             uint32 glyphsW, glyphsH;
             Stream stream(NULL, GLYPH_KO, size_GLYPH_KO);
@@ -1717,18 +1713,16 @@ struct Level : IGame {
 
         delete[] tileData;
         tileData = NULL;
-/*
         delete[] glyphsRU;
         delete[] glyphsJA;
         delete[] glyphsGR;
         delete[] glyphsCN;
+        delete[] glyphsKO;
 
         glyphsRU = NULL;
         glyphsJA = NULL;
         glyphsGR = NULL;
         glyphsCN = NULL;
-*/
-        delete[] glyphsKO;
         glyphsKO = NULL;	// By Johnny
 
         atlasRooms->setFilterQuality(Core::settings.detail.filter);
