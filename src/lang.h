@@ -256,12 +256,6 @@ enum StringID {
     , STR_MAX
 };
 
-#ifdef _XBOX // TODO: illegal escape sequence
-    #define STR_RUSSIAN "Russian"
-#else
-    #define STR_RUSSIAN "–усски{и"
-#endif
-
 #define STR_LANGUAGES \
       "English"       \
     , "Fran|cais"     \
@@ -270,17 +264,17 @@ enum StringID {
     , "Italiano"      \
     , "Polski"        \
     , "Portugu(es"    \
-    , STR_RUSSIAN     \
+    , "Russian"       \
     , "\x11\x02\x70\x01\x97\x01\xD6\xFF\xFF" \
     , "\x11\x01\x22\x01\x0F\x01\x0F\x01\x0E\x01\x06\x01\x04\x01\x0C\x01\x0B\xFF\xFF" \
     , "Suomi"         \
     , "{Cesky"        \
-    , "Chinese" \
-    , "Magyar" \
-    , "Svenska" \
+    , "Chinese"       \
+    , "Magyar"        \
+    , "Svenska"       \
     , "Korean" 	// By Johnny
 
-#define LANG_PREFIXES "_EN", "_FR", "_DE", "_ES", "_IT", "_PL", "_PT", "_RU", "_JA", "_GR", "_FI", "_CZ", "_KO", "_HU", "_SV", "_KO"
+#define LANG_PREFIXES "_EN", "_FR", "_DE", "_ES", "_IT", "_PL", "_PT", "_RU", "_JA", "_GR", "_FI", "_CZ", "_CN", "_HU", "_SV", "_KO"
 
 #define STR_KEYS \
       "NONE", "LEFT", "RIGHT", "UP", "DOWN", "SPACE", "TAB", "ENTER", "ESCAPE", "SHIFT", "CTRL", "ALT" \
