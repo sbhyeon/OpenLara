@@ -1528,8 +1528,11 @@ struct MutantEgg : Controller {
         switch (flags.active) {
             case 1  : enemy = TR::Entity::ENEMY_MUTANT_2;     break;
             case 2  : enemy = TR::Entity::ENEMY_CENTAUR;      break;
-            case 4  : enemy = TR::Entity::ENEMY_GIANT_MUTANT; break;
             case 8  : enemy = TR::Entity::ENEMY_MUTANT_3;     break;
+            case 4  : if (level->id != TR::LVL_TR1_END2) {
+                        enemy = TR::Entity::ENEMY_GIANT_MUTANT; 
+                        break;
+                      }
             default : enemy = TR::Entity::ENEMY_MUTANT_1;
         }
     }

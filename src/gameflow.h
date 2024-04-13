@@ -532,6 +532,7 @@ namespace TR {
             case 3377974 : // PC JAP
             case 3236806 :
             case 3282970 : // PC G
+            case 3238090 : // Braid enabled by Johnny
             case 3237128 : return LVL_TR1_GYM;
             // LEVEL1
             case 1667568 : // PSX JAP
@@ -539,6 +540,7 @@ namespace TR {
             case 497656  : // SAT
             case 2540906 : // PC JAP
             case 2533312 :
+            case 2534596 : // Braid enabled by Johnny
             case 2533634 : return LVL_TR1_1;
             // LEVEL2
             case 2873406 : isDemoLevel = true; return LVL_TR1_2;
@@ -547,6 +549,7 @@ namespace TR {
             case 532250  : // SAT
             case 2880722 : // PC JAP
             case 2873128 :
+            case 2874412 : // Braid enabled by Johnny
             case 2873450 : return LVL_TR1_2;
             // LEVEL3A
             case 1876896 : // PSX JAP
@@ -561,6 +564,7 @@ namespace TR {
             case 310960  : // SAT
             case 2745530 : // PC JAP
             case 2737936 :
+            case 2739220 : // Braid enabled by Johnny
             case 2738258 : return LVL_TR1_3B;
             // CUT1
             case 722402  : version = VER_TR1_PSX;
@@ -572,6 +576,7 @@ namespace TR {
             case 440612  : // SAT
             case 3038144 : // PC JAP
             case 3030550 :
+            case 3031834 : // Braid enabled by Johnny
             case 3030872 : return LVL_TR1_4;
             // LEVEL5
             case 1588102 : // PSX JAP
@@ -579,6 +584,7 @@ namespace TR {
             case 389996  : // SAT
             case 2725812 : // PC JAP
             case 2718218 :
+            case 2719502 : // Braid enabled by Johnny
             case 2718540 : return LVL_TR1_5;
             // LEVEL6
             case 1710624 : // PSX JAP
@@ -586,6 +592,7 @@ namespace TR {
             case 573506  : // SAT
             case 3147184 : // PC JAP
             case 3139590 :
+            case 3075338 : // Braid enabled by Johnny
             case 3074376 : return LVL_TR1_6;
             // LEVEL7A
             case 1698824 : // PSX JAP
@@ -593,6 +600,7 @@ namespace TR {
             case 581416  : // SAT
             case 2824884 : // PC JAP
             case 2817290 :
+            case 2818574 : // Braid enabled by Johnny
             case 2817612 : return LVL_TR1_7A;
             // LEVEL7B
             case 1735434 : // PSX JAP
@@ -601,6 +609,7 @@ namespace TR {
             case 3603912 : // PC JAP
             case 3388774 :
             case 3395618 : // PC G
+            case 3390058 : // Braid enabled by Johnny
             case 3389096 : return LVL_TR1_7B;
             // CUT2
             case 542960  : version = VER_TR1_PSX;
@@ -612,6 +621,7 @@ namespace TR {
             case 592188  : // SAT
             case 2887836 : // PC JAP
             case 2880242 :
+            case 2881526 : // Braid enabled by Johnny
             case 2880564 : return LVL_TR1_8A;
             // LEVEL8B
             case 1567790 : // PSX JAP
@@ -619,6 +629,7 @@ namespace TR {
             case 599928  : // SAT
             case 2894028 : // PC JAP
             case 2886434 :
+            case 2887718 : // Braid enabled by Johnny
             case 2886756 : return LVL_TR1_8B;
             // LEVEL8C
             case 1621520 : // PSX JAP
@@ -627,6 +638,7 @@ namespace TR {
             case 3072066 : // PC JAP
             case 3105128 :
             case 3025380 : // PC G
+            case 3106412 : // Braid enabled by Johnny
             case 3105450 : return LVL_TR1_8C;
             // LEVEL10A
             case 1680146 : // PSX JAP
@@ -635,6 +647,7 @@ namespace TR {
             case 3270372 : // PC JAP
             case 3223816 :
             case 3154346 : // PC G
+            case 3225100 : // Braid enabled by Johnny
             case 3224138 : return LVL_TR1_10A;
             // CUT3
             case 636660  : version = VER_TR1_PSX;
@@ -646,6 +659,7 @@ namespace TR {
             case 525646  : // SAT
             case 3101614 : // PC JAP
             case 3094342 :
+            case 3095304 : // Braid enabled by Johnny
             case 3094020 : return LVL_TR1_10B;
             // CUT4
             case 940398  : version = VER_TR1_PSX;
@@ -658,6 +672,7 @@ namespace TR {
             case 3533814 : // PC JAP
             case 3531702 :
             case 3496692 : // PC G
+            case 3532986 : // Braid enabled by Johnny
             case 3532024 : return LVL_TR1_10C;
             // EGYPT
             case 3278614 : version = VER_TR1_PSX;
