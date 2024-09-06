@@ -554,8 +554,11 @@ int main(int argc, char **argv) {
     const char *home;
     if (!(home = getenv("HOME")))
         home = getpwuid(getuid())->pw_dir;
-    strcat(cacheDir, home);
-    strcat(cacheDir, "/.openlara/");
+    //strcat(cacheDir, home);
+    //strcat(cacheDir, "/.openlara/");  By Johnny
+    char *base = strrchr(argv[0], '/');
+    sprintf(cacheDir, "%s/.%s/", home, base?(base+1):argv[0]); 
+    LOG ("cacheDir = %s\n", cacheDir);
 
     struct stat st = {0};
     if (stat(cacheDir, &st) == -1 && mkdir(cacheDir, 0777) == -1)

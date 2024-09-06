@@ -493,6 +493,7 @@ int checkLanguage() {
     if (id == TWOCC("zh")) return STR_LANG_CN - STR_LANG_EN;
     if (id == TWOCC("hu")) return STR_LANG_HU - STR_LANG_EN;
     if (id == TWOCC("sv")) return STR_LANG_SV - STR_LANG_EN;
+    if (id == TWOCC("ko")) return STR_LANG_KO - STR_LANG_EN;
 
     return 0;
 }
@@ -519,8 +520,11 @@ int main(int argc, char **argv) {
     const char *home;
     if (!(home = getenv("HOME")))
         home = getpwuid(getuid())->pw_dir;
-    strcat(cacheDir, home);
-    strcat(cacheDir, "/.openlara/");
+    //strcat(cacheDir, home);
+    //strcat(cacheDir, "/.openlara/");
+    char *base = strrchr(argv[0], '/');
+    sprintf(cacheDir, "%s/.%s/", home, base?(base+1):argv[0]);
+    LOG ("cacheDir = %s\n", cacheDir);
 
     struct stat st = {0};
     if (stat(cacheDir, &st) == -1 && mkdir(cacheDir, 0777) == -1)
