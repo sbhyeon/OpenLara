@@ -1760,7 +1760,8 @@ namespace TR {
             case LVL_TR1_5 :
                 params.skyDownColor    = vec4(0.15f, 0.05f, 0.0f, 1.0f);
                 params.skyUpColor      = vec4(0.3f, 0.2f, 0.1f, 1.0f);
-                params.sunDirSize      = vec4(vec3(-1.0f, 0.8f, -1.0f).normal(), 0.0015f);
+                //params.sunDirSize      = vec4(vec3(-1.0f, 0.8f, -1.0f).normal(), 0.0015f);  change sun direction.. By Johnny
+                params.sunDirSize      = vec4(vec3(1.0f, 0.95f, -1.0f).normal(), 0.0015f);
                 params.sunColorGlare   = vec4(0.7f, 0.7f, 0.6f, 256.0f);
                 params.cloudDownColor  = vec4(0.2f, 0.1f, 0.0f, 1.0f);
                 params.cloudUpColor    = vec4(0.5f, 0.5f, 0.4f, 1.0f);

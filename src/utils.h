@@ -66,6 +66,10 @@
     #define LOG(...) __android_log_print(ANDROID_LOG_INFO,"OpenLara",__VA_ARGS__)
 #endif
 
+#ifdef _NOLOG   // By Johnny
+    #undef LOG
+    #define LOG(...)
+#endif
 
 #ifdef _OS_PSP
     extern "C" {
